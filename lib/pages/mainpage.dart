@@ -1,4 +1,3 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +18,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final FlutterTts tts = FlutterTts();
-  int _selectedIndex = 0;
+  PageController _pageController = PageController(initialPage: 0); // Add this line and set the initialPage
 
   Future<CameraDescription> cameraA() async {
     final cameras = await availableCameras();
@@ -27,95 +26,83 @@ class _MainPageState extends State<MainPage> {
     return firstCamera;
   }
 
-
+  @override
+  void dispose() {
+    _pageController.dispose(); // Dispose the page controller when the widget is disposed
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp
-    ]); //스크린 세로로 고정하는 것.
+      DeviceOrientation.portraitUp,
+    ]);
 
-    // setState(() {
-    //   tts.speak('.');
-    // });
     return Scaffold(
-        backgroundColor:
-            whatmedicol.medipink, //이거는 이제 각 페이지 마다 생각해줘야 해 백그라운드 배경색.
-        body: IndexedStack(
-          index: _selectedIndex,
-          children: const [
-            SearchPage(),
-            TakePictureScreen(),
-            SettingPage(),
-          ],
-        ),
-        bottomNavigationBar: SafeArea(
-          child: Container(
-            height: 110.6 + 2.4 + 3.0, //족므 더 생각//pixel 오버플로우 나타나서 2.4 더해주긴 했음
-            padding: EdgeInsets.all(0),
-            child: ClipRRect(
-              //borderRadius: BorderRadius.circular(50.0),
+      backgroundColor: whatmedicol.medipink,
+      body: PageView(
+        controller: _pageController,
+        children: const [
+          SearchPage(),
+          TakePictureScreen(),
+          SettingPage(),
+        ],
+        onPageChanged: (index) {
+          // You can do something when the page changes if needed
+        },
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          height: 110.6 + 2.4 + 3.0,
+          padding: EdgeInsets.all(0),
+          child: ClipRRect(
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              backgroundColor: whatmedicol.medigreen,
 
-              // borderRadius: BorderRadius.only(
-              //     topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-              //이런것도 있다 정도로만 알아두기
-
-              child: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-
-                showSelectedLabels: true,
-                showUnselectedLabels: true,
-                currentIndex: _selectedIndex,
-                backgroundColor: whatmedicol.medigreen,
-                //이거보다 약간은 연하게 해주는 색 찾기
-                onTap: (index) {
-                  print(_selectedIndex);
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                selectedLabelStyle: TextStyle(
-                  //height: 1.6,
-                  fontSize: 30,
-                  color: whatmedicol.medipink,
+              onTap: (index) {
+                // Use _pageController to animate the page transition when tapping on a bottom navigation bar item
+                _pageController.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 30),
+                  curve: Curves.easeInOut,
+                );
+              },
+              selectedItemColor: whatmedicol.medipink,
+              unselectedItemColor: whatmedicol.medipinkwhite,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.search,
+                    size: 30,
+                    semanticLabel: '검색 탭',
+                  ),
+                  label: "검색",
                 ),
-                unselectedLabelStyle: TextStyle(
-                  //height: 1.6,
-                  fontSize: 20,
-                  color:
-                      whatmedicol.medipinkwhite, //이거도 위에처럼 약간은 연하게 해주는 색 찾아서 넣기
-                ), // your text style
-                iconSize: 25,
-                selectedIconTheme: IconThemeData(size: 35),
-                selectedItemColor: whatmedicol.medipink,
-                unselectedItemColor: whatmedicol.medipinkwhite,
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.search,
-                      semanticLabel: '검색 탭'
-                    ),
-                    label: "검색",
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    size: 30,
+                    Icons.camera_alt,
+                    semanticLabel: '촬영 탭',
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.camera_alt,
-                      semanticLabel: '촬영 탭',
-                    ),
-                    label: "촬영",
+                  label: "촬영",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    size: 30,
+                    Icons.settings,
+                    semanticLabel: '설정 탭',
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.settings,
-                      semanticLabel: '설정 탭',
-                    ),
-                    label: "설정",
-                  ),
-                ],
-              ),
+                  label: "설정",
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

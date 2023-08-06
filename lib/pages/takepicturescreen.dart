@@ -281,7 +281,7 @@ class TakePictureScreenState extends State<TakePictureScreen>
                       viewModel.isLoading = false;
                     });
 
-                    await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(Duration(milliseconds: 1));
                     fetchDataFromServer2();
                   } catch (e) {
                     print(e);
