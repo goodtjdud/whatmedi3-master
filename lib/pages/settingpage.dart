@@ -38,6 +38,7 @@ bool isCorp = true;
 bool isIngredient = true;
 bool isEffect = true;
 bool isUsage = true;
+bool isWarning = true;
 bool isSwitched = true;
 double speechRateInt = 1;
 double pitchRateInt = 1;

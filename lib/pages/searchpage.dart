@@ -107,6 +107,7 @@ class _SearchPageState extends State<SearchPage> {
       isIngredient = prefs.getBool("isIngredient")!;
       isEffect = prefs.getBool("isEffect")!;
       isUsage = prefs.getBool("isUsage")!;
+      isWarning = prefs.getBool("isWarning")!;
       speechRateInt = prefs.getDouble("speechRateInt")!;
       isDescending = prefs.getBool("isDescending")!;
     });
@@ -206,10 +207,10 @@ class _SearchPageState extends State<SearchPage> {
           // leading: Center(
           //   child: Text('Cranes'),
           // ),
-          title: Image.asset("assets/images/whatmedi2.png",
-              fit: BoxFit.contain,
-              height: AppBar().preferredSize.height, //어느 핸드폰이든 보일 수 있도록.
-              width: AppBar().preferredSize.height),
+          // title: Image.asset("assets/images/whatmedi2.png",
+          //     fit: BoxFit.contain,
+          //     height: AppBar().preferredSize.height, //어느 핸드폰이든 보일 수 있도록.
+          //     width: AppBar().preferredSize.height),
           // title: Image.asset(
           //   "images/whatmedi2.png",
           //   fit: BoxFit.contain,
@@ -245,7 +246,7 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       child: Container(
                         color: whatmedicol.medigreen,
-                        height: 65,
+                        height: 70,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                           child: TextField(
@@ -261,7 +262,7 @@ class _SearchPageState extends State<SearchPage> {
                                 hoverColor: whatmedicol.medigreenwhite,
                                 //icon: Icon(Icons.search),
                                 //iconColor: whatmedicol.medigreen,
-                                labelText: "검색",
+                                labelText: "검색(띄어쓰기 금지)",
                                 labelStyle: TextStyle(
                                     fontSize: 18, color: whatmedicol.medigreen),
                                 hintText: "찾고자 하는 약을 입력하세요(띄어쓰기 금지)",
@@ -352,7 +353,7 @@ class _SearchPageState extends State<SearchPage> {
                         itemBuilder:
                             (BuildContext context, int index) =>
                             Card(
-                              elevation: 8.0,
+                              elevation: 10.0,
                               margin: new EdgeInsets.symmetric(
                                   horizontal: 10.0, vertical: 6.0),
                               shadowColor: whatmedicol
@@ -372,7 +373,7 @@ class _SearchPageState extends State<SearchPage> {
                                       10,
                                       10,
                                       10,
-                                      0), //타일내 텍스트와 타일 사이 거리
+                                      10), //타일내 텍스트와 타일 사이 거리
                                   title: SizedBox(
                                       child: Text(
                                         sortedfoundUsers[index]["title"]

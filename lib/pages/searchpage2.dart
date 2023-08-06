@@ -48,7 +48,8 @@ class _SearchedPageState extends State<SearchedPage>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
-      speech.stop(); // 앱이 백그라운드로 이동할 때 TTS 중지
+      speech.stop();
+      // 앱이 백그라운드로 이동할 때 TTS 중지
     }
   }
 
@@ -88,6 +89,7 @@ class _SearchedPageState extends State<SearchedPage>
   String sungbun = '';
   String hyoneung = '';
   String youngbup = '';
+  String juyi = '';
   void choice() {
     if (isTitle == true) {
       pummok = ',,,품목명: ${widget.mediinfo["title"]}';
@@ -114,11 +116,16 @@ class _SearchedPageState extends State<SearchedPage>
     } else {
       youngbup = '';
     }
+    if (isWarning == true) {
+      juyi = ',,,주의사항: ${widget.mediinfo["warning"]}';
+    } else {
+      juyi = '';
+    }
   }
 
   Future play() async {
     set();
-    await speech.speak(pummok + upche + sungbun + hyoneung + youngbup);
+    await speech.speak(pummok + upche + sungbun + hyoneung + youngbup + juyi);
   }
   // Future play2() async {
   //   await speech.speak(pummok + upche + sungbun + hyoneung + youngbup);
@@ -129,6 +136,7 @@ class _SearchedPageState extends State<SearchedPage>
     return Scaffold(
         backgroundColor: whatmedicol.medipink,
         appBar: AppBar(
+          backgroundColor: Colors.white30,
           elevation: 0,
           title: Text(widget.mediinfo["title"]),
         ),
@@ -136,45 +144,41 @@ class _SearchedPageState extends State<SearchedPage>
           child: Padding(
             padding: EdgeInsets.all(20.0),
             child: Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Container(
-                  height: 400,
-                  width: 300,
-                  decoration: BoxDecoration(
-                      ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 20),
-                      Text("품목명: ${widget.mediinfo["title"]}",
-                          style:
-                          TextStyle(fontSize: 20, fontFamily: 'SCDream4')),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text("업체명: ${widget.mediinfo["corp"]}",
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text("성분: ${widget.mediinfo["ingredient"]}",
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text("효능효과: ${widget.mediinfo["effect"]}",
-                          style: TextStyle(fontSize: 20)),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text("용법용량: ${widget.mediinfo["usage"]}",
-                          style: TextStyle(fontSize: 20)),
-                    ],
+              child: ListView(
+                children: [
+                  SizedBox(height: 20),
+                  Text("품목명: ${widget.mediinfo["title"]}",
+                        style:
+                        TextStyle(fontSize: 20, fontFamily: 'SCDream4')),
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
-              ),
+                  Text("업체명: ${widget.mediinfo["corp"]}",
+                      style: TextStyle(fontSize: 20)),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("성분: ${widget.mediinfo["ingredient"]}",
+                      style: TextStyle(fontSize: 20)),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("효능효과: ${widget.mediinfo["effect"]}",
+                      style: TextStyle(fontSize: 20)),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("용법용량: ${widget.mediinfo["usage"]}",
+                      style: TextStyle(fontSize: 20)),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("주의사항: ${widget.mediinfo["warning"]}",
+                  style: TextStyle(fontSize: 20)),
+                  SizedBox(
+                  height: 20,
+                  ),
+              ]),
             ),
           ),
         ));

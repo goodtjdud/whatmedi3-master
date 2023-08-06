@@ -77,7 +77,7 @@ class IntroScreen extends StatefulWidget {
                       AssetSource('guide.m4a'),
                     );
                     musicStart = 1;
-                    message = Text("오디오 재생 멈춤");
+                    message = Text("오디오 정지");
                   } else {
                     player.stop();
                     musicStart = 0;
@@ -94,6 +94,7 @@ class IntroScreen extends StatefulWidget {
             right: 16,
             child: ElevatedButton(
               onPressed: () {
+                player.stop();
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

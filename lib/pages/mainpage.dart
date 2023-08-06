@@ -27,6 +27,8 @@ class _MainPageState extends State<MainPage> {
     return firstCamera;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -68,6 +70,7 @@ class _MainPageState extends State<MainPage> {
                 backgroundColor: whatmedicol.medigreen,
                 //이거보다 약간은 연하게 해주는 색 찾기
                 onTap: (index) {
+                  print(_selectedIndex);
                   setState(() {
                     _selectedIndex = index;
                   });
@@ -91,18 +94,21 @@ class _MainPageState extends State<MainPage> {
                   BottomNavigationBarItem(
                     icon: Icon(
                       Icons.search,
+                      semanticLabel: '검색 탭'
                     ),
                     label: "검색",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
                       Icons.camera_alt,
+                      semanticLabel: '촬영 탭',
                     ),
                     label: "촬영",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
                       Icons.settings,
+                      semanticLabel: '설정 탭',
                     ),
                     label: "설정",
                   ),

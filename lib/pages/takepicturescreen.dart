@@ -348,6 +348,7 @@ class TakePictureScreenState extends State<TakePictureScreen>
                 icon: Icon(
                   Icons.radio_button_on,
                   color: Colors.white,
+                  semanticLabel: '촬영 버튼',
                 ),
                 iconSize: 100.0,
                 padding: EdgeInsets.all(0.0),
