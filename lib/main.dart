@@ -64,7 +64,9 @@ class IntroScreen extends StatefulWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('앱 사용 설명 페이지'),
+        title: Text(
+            '앱 사용 설명 페이지',
+        style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: Stack(
         children: [

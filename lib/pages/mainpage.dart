@@ -73,28 +73,37 @@ class _MainPageState extends State<MainPage> {
               },
               selectedItemColor: whatmedicol.medipink,
               unselectedItemColor: whatmedicol.medipinkwhite,
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.search,
-                    size: 30,
-                    semanticLabel: '검색 탭',
+                  icon: Semantics(
+                    excludeSemantics: true,
+                    child: Icon(
+                      Icons.search,
+                      size: 30,
+                      semanticLabel: '검색 탭',
+                    ),
                   ),
                   label: "검색",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    size: 30,
-                    Icons.camera_alt,
-                    semanticLabel: '촬영 탭',
+                  icon: Semantics(
+                    excludeSemantics: true,
+                    child: Icon(
+                      size: 30,
+                      Icons.camera_alt,
+                      semanticLabel: '촬영 탭',
+                    ),
                   ),
                   label: "촬영",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    size: 30,
-                    Icons.settings,
-                    semanticLabel: '설정 탭',
+                  icon: Semantics(
+                    excludeSemantics: true,
+                    child: Icon(
+                      size: 30,
+                      Icons.settings,
+                      semanticLabel: '설정 탭',
+                    ),
                   ),
                   label: "설정",
                 ),

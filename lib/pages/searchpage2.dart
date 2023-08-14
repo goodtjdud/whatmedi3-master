@@ -16,6 +16,8 @@ import 'package:flutter_accessibility_service/accessibility_event.dart';
 import 'package:flutter_accessibility_service/flutter_accessibility_service.dart';
 import 'package:flutter/services.dart';
 
+
+
 class SearchedPage extends StatefulWidget with WidgetsBindingObserver {
   SearchedPage({Key? key, required this.mediinfo}) : super(key: key);
   final Map mediinfo;
@@ -84,6 +86,17 @@ class _SearchedPageState extends State<SearchedPage>
     super.dispose();
   }
 
+  TextStyle bold = TextStyle(
+    color: Colors.black,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+
+  TextStyle regular = TextStyle(
+    color: Colors.black,
+    fontSize: 20,
+  );
+
   String pummok = '';
   String upche = '';
   String sungbun = '';
@@ -147,34 +160,88 @@ class _SearchedPageState extends State<SearchedPage>
               child: ListView(
                 children: [
                   SizedBox(height: 20),
-                  Text("품목명: ${widget.mediinfo["title"]}",
-                        style:
-                        TextStyle(fontSize: 20, fontFamily: 'SCDream4')),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '품목명',
+                          style: bold,
+                        ),
+                        TextSpan(
+                          text: ': ${widget.mediinfo["title"]}',
+                          style: regular
+                        ),
+                      ],
+                    ),
+                  ),
+              SizedBox(
+                    height: 20,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '성분',
+                          style: bold,
+                        ),
+                        TextSpan(
+                          text: ': ${widget.mediinfo["ingredient"]}',
+                          style: regular,
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
-                  Text("업체명: ${widget.mediinfo["corp"]}",
-                      style: TextStyle(fontSize: 20)),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '효능효과',
+                          style: bold,
+                        ),
+                        TextSpan(
+                          text: ': ${widget.mediinfo["effect"]}',
+                          style: regular,
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
-                  Text("성분: ${widget.mediinfo["ingredient"]}",
-                      style: TextStyle(fontSize: 20)),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '용법용량',
+                          style: bold,
+                        ),
+                        TextSpan(
+                          text: ': ${widget.mediinfo["usage"]}',
+                          style: regular,
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
-                  Text("효능효과: ${widget.mediinfo["effect"]}",
-                      style: TextStyle(fontSize: 20)),
-                  SizedBox(
-                    height: 20,
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '주의사항',
+                          style: bold,
+                        ),
+                        TextSpan(
+                          text: ': ${widget.mediinfo["warning"]}',
+                          style: regular,
+                        ),
+                      ],
+                    ),
                   ),
-                  Text("용법용량: ${widget.mediinfo["usage"]}",
-                      style: TextStyle(fontSize: 20)),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text("주의사항: ${widget.mediinfo["warning"]}",
-                  style: TextStyle(fontSize: 20)),
                   SizedBox(
                   height: 20,
                   ),

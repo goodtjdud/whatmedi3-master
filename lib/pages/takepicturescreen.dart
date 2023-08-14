@@ -210,7 +210,7 @@ class TakePictureScreenState extends State<TakePictureScreen>
                 CircularProgressIndicator()), // 카메라 초기화 중이거나 실패한 경우 로딩 표시
 
           Positioned(
-            bottom: 70,
+            bottom: 30,
             left: 0,
             right: 0,
             child: getFloatingButtons(),
@@ -345,10 +345,13 @@ class TakePictureScreenState extends State<TakePictureScreen>
                     print(e);
                   }
                 },
-                icon: Icon(
-                  Icons.radio_button_on,
-                  color: Colors.white,
-                  semanticLabel: '촬영 버튼',
+                icon: Semantics(
+                  excludeSemantics: true,
+                  child: Icon(
+                    Icons.radio_button_on,
+                    color: Colors.white,
+                    semanticLabel: '촬영 버튼',
+                  ),
                 ),
                 iconSize: 100.0,
                 padding: EdgeInsets.all(0.0),
